@@ -1,17 +1,8 @@
 /* 
-
+Author: Sonya Schuppan
 Modified timer interrupt code from:
-Example Timer1 Interrupt
-Flash LED every second
-
 http://www.hobbytronics.co.uk/arduino-timer-interrupts
 */
-
-
-
-
-
-
 
 
 #include "FIFO_buffer.h"
@@ -58,12 +49,7 @@ const uint8_t pinSpeed_Right = 6;  //10          // left right speed reference p
 uint8_t color_loop_count = 0;
 bool led_on = 0;
 
-
-float encoderPulses = 0; //do I need to make this global?
-
-
-
-
+float encoderPulses = 0; 
 
 
 void forward(float Dist_inch, uint8_t Speed){
@@ -88,20 +74,12 @@ void forward(float Dist_inch, uint8_t Speed){
   enc_count_Left = 0;
 }
 
-
-
-
-
-
-
 //buffer instantiation
 FIFO_Buffer buff(BUFFER_SIZE);
 
 //ISR declarations
 void count_enc();
 void count_light();
-
-
 
 
 void setup()
@@ -161,9 +139,6 @@ attachInterrupt(1, count_light, RISING);     //ISR: count_light -- pin 3
 }
 
 
-
-
-
 ////ISRs////
   //Encoder Count ISR
   void count_enc(){
@@ -174,8 +149,6 @@ attachInterrupt(1, count_light, RISING);     //ISR: count_light -- pin 3
   void count_light(){
     light_count++;
   }
-
-
   
   //Timer1 ISR
   ISR(TIMER1_OVF_vect)  // interrupt service routine  -- ISR is C method of calling interrupt vectors for atmegas <3
@@ -208,18 +181,6 @@ attachInterrupt(1, count_light, RISING);     //ISR: count_light -- pin 3
     }
     interrupt_counter++;
   }
-
-
-  
-  
-
-
-
-
-
-
-
-
 
 void loop()
 {
@@ -358,16 +319,6 @@ void loop()
         delay(500);
         digitalWrite(BLUE_LED_PIN, LOW);
         delay(500);
-        /*
-        while(color_loop_count < 5){
-          led_on ^= led_on;
-          digitalWrite(BLUE_LED_PIN, led_on);
-          color_loop_count++;
-          delay(500);
-        }
-        led_on = 0;
-        digitalWrite(BLUE_LED_PIN, led_on);
-        color_loop_count = 0;*/
         break;
       default:
         Serial.println("entered defalut state - something is wrong");
